@@ -1,971 +1,1870 @@
 <!DOCTYPE html>
+
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CapStore - Compra y Venta de Gorras</title>
-    <style>
-        /* INICIO DEL CÓDIGO CSS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background: #000000;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 4rem 0;
-            color: #fff;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.3s both;
-        }
-
-        .cta-button {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-            animation: fadeInUp 1s ease 0.6s both;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
-        }
-
-        .features {
-            padding: 4rem 0;
-            background: rgba(255, 255, 255, 0.95);
-            margin: 2rem 0;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .products {
-            padding: 4rem 0;
-        }
-
-        .products h2 {
-            text-align: center;
-            color: #fff;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-        }
-
-        .product-image {
-            height: 200px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: white;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-info h3 {
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff6b6b;
-            margin: 1rem 0;
-        }
-
-        .buy-button {
-            background: linear-gradient(45deg, #4ecdc4, #44a08d);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-weight: bold;
-        }
-
-        .buy-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 201, 196, 0.4);
-        }
-
-        .sell-section {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 4rem 0;
-            margin: 2rem 0;
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .sell-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .submit-button {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .submit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        footer {
-            background: rgba(0, 0, 0, 0.2);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .cart-icon {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ff6b6b;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        /* NUEVOS ESTILOS PARA EL CARRITO (Estos son los únicos añadidos/modificados para la funcionalidad) */
-        .cart-section {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 4rem 0;
-            margin: 2rem 0;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            display: none; /* Inicia oculto */
-        }
-
-        .cart-section.active {
-            display: block;
-        }
-
-        .cart-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .cart-header h2 {
-            color: #333;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cart-items {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cart-item {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.3s ease;
-        }
-
-        .cart-item:hover {
-            transform: translateX(5px);
-        }
-
-        .cart-item-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .cart-item-icon {
-            font-size: 2rem;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cart-item-details h4 {
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-
-        .cart-item-price {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #ff6b6b;
-        }
-
-        .cart-item-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #f5f5f5;
-            border-radius: 25px;
-            padding: 0.5rem 1rem;
-        }
-
-        .quantity-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            transition: background 0.3s ease;
-        }
-
-        .quantity-btn:hover {
-            background: #5a67d8;
-        }
-
-        .quantity-display {
-            font-weight: bold;
-            min-width: 20px;
-            text-align: center;
-        }
-
-        .remove-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .remove-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-        }
-
-        .cart-summary {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin-top: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .cart-total {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .cart-total-price {
-            color: #ff6b6b;
-        }
-
-        .checkout-btn {
-            background: linear-gradient(45deg, #4ecdc4, #44a08d);
-            color: white;
-            border: none;
-            padding: 1rem 3rem;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-        }
-
-        .checkout-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(76, 201, 196, 0.4);
-        }
-
-        .empty-cart {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        .empty-cart-icon {
-            font-size: 5rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        .empty-cart h3 {
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .continue-shopping {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            text-decoration: none;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            display: inline-block;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .continue-shopping:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                /* Para móviles, puedes ocultarlos o hacer un menú hamburguesa */
-                /* display: none; */
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            .hero p {
-                font-size: 1.1rem;
-            }
-            .cart-item {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-            .cart-item-actions {
-                justify-content: center;
-            }
-        }
-        /* FIN DEL CÓDIGO CSS */
-    </style>
-</head>
-<body>
-    <header>
-        <nav class="container">
-            <div class="logo">🧢 CapStore</div>
-            <ul class="nav-links">
-                <li><a href="#inicio" onclick="hideCart()">Inicio</a></li>
-                <li><a href="#productos" onclick="hideCart()">Productos</a></li>
-                <li><a href="#vender" onclick="hideCart()">Vender</a></li>
-                <li><a href="#contacto" onclick="hideCart()">Contacto</a></li>
-                <li><a href="#" class="cart-icon" onclick="toggleCart()">🛒 <span class="cart-count">0</span></a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="inicio" class="hero">
-            <div class="container">
-                <h1>¡Encuentra tu Gorra Perfecta!</h1>
-                <p>Compra y vende gorras de las mejores marcas con total confianza</p>
-                <a href="#productos" class="cta-button" onclick="hideCart()">Ver Productos</a>
-            </div>
-        </section>
-
-        <section id="carrito" class="cart-section">
-            <div class="container">
-                <div class="cart-header">
-                    <h2>🛒 Tu Carrito de Compras</h2>
-                    <p style="color: #666;">Revisa los productos que has seleccionado</p>
-                </div>
-
-                <div id="cart-content">
-                    </div>
-            </div>
-        </section>
-
-        <section class="features">
-            <div class="container">
-                <h2 style="text-align: center; color: #333; margin-bottom: 2rem;">¿Por qué elegirnos?</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🚚</div>
-                        <h3>Envío Gratis</h3>
-                        <p>Envío gratuito en compras mayores a $500 MXN</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>Compra Segura</h3>
-                        <p>Todas las transacciones están protegidas y garantizadas</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💎</div>
-                        <h3>Calidad Premium</h3>
-                        <p>Solo vendemos gorras originales y de alta calidad</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="productos" class="products">
-            <div class="container">
-                <h2>Nuestros Productos</h2>
-                <div class="products-grid">
-                    <div class="product-card">
-                        <div class="product-image"><img src="img/depo.jpg" alt="Gorra Deportiva Nike" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px 15px 0 0;"></div>
-                        <div class="product-info">
-                            <h3>Gorra Deportiva Nike</h3>
-                            <p>Gorra deportiva original Nike, perfecta para entrenar</p>
-                            <div class="product-price">$850 MXN</div>
-                            <button class="buy-button" onclick="addToCart('Nike Deportiva', 850, '🧢', event)">Agregar al Carrito</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image"><img src="img/yanke.jpg" alt="Gorra New Era Yankees" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px 15px 0 0;"></div>
-                        <div class="product-info">
-                            <h3>Gorra New Era Yankees</h3>
-                            <p>Clásica gorra de los Yankees, edición limitada</p>
-                            <div class="product-price">$1,200 MXN</div>
-                            <button class="buy-button" onclick="addToCart('New Era Yankees', 1200, '👑', event)">Agregar al Carrito</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image"><img src="img/perso.jpg" alt="Gorra Personalizada" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px 15px 0 0;"></div>
-                        <div class="product-info">
-                            <h3>Gorra Personalizada</h3>
-                            <p>Diseña tu propia gorra con bordado personalizado</p>
-                            <div class="product-price">$650 MXN</div>
-                            <button class="buy-button" onclick="addToCart('Personalizada', 650, '🎨', event)">Agregar al Carrito</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image"><img src="img/vintage.jpg" alt="Gorra Trucker Vintage" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px 15px 0 0;"></div>
-                        <div class="product-info">
-                            <h3>Gorra Trucker Vintage</h3>
-                            <p>Estilo retro con malla trasera, muy cómoda</p>
-                            <div class="product-price">$450 MXN</div>
-                            <button class="buy-button" onclick="addToCart('Trucker Vintage', 450, '🌟', event)">Agregar al Carrito</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image"><img src="img/spa.jpg" alt="Gorra Snapback" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px 15px 0 0;"></div>
-                        <div class="product-info">
-                            <h3>Gorra Snapback</h3>
-                            <p>Gorra snapback con visera plana, estilo urbano</p>
-                            <div class="product-price">$750 MXN</div>
-                            <button class="buy-button" onclick="addToCart('Snapback', 750, '⚡', event)">Agregar al Carrito</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image"><img src="img/adi.jpg" alt="Gorra Adidas Original" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px 15px 0 0;"></div>
-                        <div class="product-info">
-                            <h3>Gorra Adidas Original</h3>
-                            <p>Gorra Adidas clásica con las tres rayas icónicas</p>
-                            <div class="product-price">$900 MXN</div>
-                            <button class="buy-button" onclick="addToCart('Adidas Original', 900, '🏆', event)">Agregar al Carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="vender" class="sell-section">
-            <div class="container">
-                <h2 style="color: #333; margin-bottom: 2rem;">¿Quieres Vender tu Gorra?</h2>
-                <p style="color: #666; margin-bottom: 2rem;">Publica tu gorra y alcanza a miles de compradores potenciales</p>
-                
-                <div class="sell-form">
-                    <h3 style="margin-bottom: 1.5rem; color: #333;">Información del Producto</h3>
-                    <form id="sellForm">
-                        <div class="form-group">
-                            <label for="productName">Nombre del Producto</label>
-                            <input type="text" id="productName" name="productName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="brand">Marca</label>
-                            <input type="text" id="brand" name="brand" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="condition">Estado</label>
-                            <select id="condition" name="condition" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px;">
-                                <option value="nuevo">Nuevo</option>
-                                <option value="como-nuevo">Como Nuevo</option>
-                                <option value="usado">Usado</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="price">Precio (MXN)</label>
-                            <input type="number" id="price" name="price" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Descripción</label>
-                            <textarea id="description" name="description" rows="4" placeholder="Describe tu gorra..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact">Información de Contacto</label>
-                            <input type="text" id="contact" name="contact" placeholder="Teléfono o email" required>
-                        </div>
-                        <button type="submit" class="submit-button">Publicar Gorra</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer id="contacto">
-        <div class="container">
-            <p>&copy; 2025 CapStore. Todos los derechos reservados.</p>
-            <p>📧 contacto@capstore.mx | 📱 +52 55 1234-5678</p>
-            <p>🚚 Envíos a toda la República Mexicana</p>
-        </div>
-    </footer>
-
-    <script>
-        let cart = [];
-        let cartCount = 0;
-
-        function addToCart(productName, price, icon = '🧢', event) {
-            const existingItem = cart.find(item => item.name === productName);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    name: productName, 
-                    price: price, 
-                    icon: icon,
-                    quantity: 1,
-                    id: Date.now()
-                });
-            }
-            
-            updateCartDisplay();
-            
-            const button = event.target;
-            const originalText = button.textContent;
-            button.textContent = '¡Agregado! ✓';
-            button.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
-            
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.background = 'linear-gradient(45deg, #4ecdc4, #44a08d)';
-            }, 2000);
-            
-            showNotification(`${productName} agregada al carrito`);
-        }
-
-        function hideAllSectionsExceptCart() {
-            const sections = document.querySelectorAll('main > section:not(#carrito)');
-            sections.forEach(section => {
-                section.style.display = 'none';
-            });
-        }
-
-        function showAllSections() {
-            const sections = document.querySelectorAll('main > section:not(#carrito)');
-            sections.forEach(section => {
-                section.style.display = 'block';
-            });
-            document.getElementById('carrito').classList.remove('active');
-        }
-
-        function toggleCart() {
-            const cartSection = document.getElementById('carrito');
-            
-            if (cartSection.classList.contains('active')) {
-                showAllSections();
-            } else {
-                hideAllSectionsExceptCart();
-                cartSection.classList.add('active');
-                renderCart();
-            }
-        }
-
-        function hideCart() {
-            showAllSections();
-        }
-
-        function renderCart() {
-            const cartContent = document.getElementById('cart-content');
-            
-            if (cart.length === 0) {
-                cartContent.innerHTML = `
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">🛒</div>
-                        <h3>Tu carrito está vacío</h3>
-                        <p style="color: #666; margin-bottom: 2rem;">¡Agrega algunos productos increíbles!</p>
-                        <a href="#" class="continue-shopping" onclick="toggleCart()">Continuar Comprando</a>
-                    </div>
-                `;
-                return;
-            }
-
-            const cartItemsHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div class="cart-item-info">
-                        <div class="cart-item-icon">${item.icon}</div>
-                        <div class="cart-item-details">
-                            <h4>${item.name}</h4>
-                            <div class="cart-item-price">$${item.price.toLocaleString()} MXN</div>
-                        </div>
-                    </div>
-                    <div class="cart-item-actions">
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
-                            <span class="quantity-display">${item.quantity}</span>
-                            <button class="quantity-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
-                        </div>
-                        <button class="remove-btn" onclick="removeFromCart(${item.id})">Eliminar</button>
-                    </div>
-                </div>
-            `).join('');
-
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-            cartContent.innerHTML = `
-                <div class="cart-items">
-                    ${cartItemsHTML}
-                </div>
-                <div class="cart-summary">
-                    <div class="cart-total">
-                        Total: <span class="cart-total-price">$${total.toLocaleString()} MXN</span>
-                    </div>
-                    <p style="color: #666; margin-bottom: 1rem;">${totalItems} producto${totalItems !== 1 ? 's' : ''} en tu carrito</p>
-                    <button class="checkout-btn" onclick="checkout()">Proceder al Pago 🚀</button>
-                    <br><br>
-                    <a href="#" class="continue-shopping" onclick="toggleCart()">← Continuar Comprando</a>
-                </div>
-            `;
-        }
-
-        function changeQuantity(itemId, change) {
-            const item = cart.find(item => item.id === itemId);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeFromCart(itemId);
-                    return;
-                }
-                updateCartDisplay();
-                renderCart();
-            }
-        }
-
-        function removeFromCart(itemId) {
-            const itemIndex = cart.findIndex(item => item.id === itemId);
-            if (itemIndex > -1) {
-                const removedItem = cart[itemIndex];
-                cartCount -= removedItem.quantity;
-                cart.splice(itemIndex, 1);
-                updateCartDisplay();
-                renderCart();
-                showNotification(`${removedItem.name} eliminada del carrito`);
-            }
-        }
-
-        function updateCartDisplay() {
-            cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.querySelector('.cart-count').textContent = cartCount;
-        }
-
-        function checkout() {
-            if (cart.length === 0) {
-                showNotification(`Tu carrito está vacío, no puedes proceder al pago.`);
-                return;
-            }
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            showNotification(`¡Compra realizada por $${total.toLocaleString()} MXN! Gracias por tu compra 🎉`);
-            
-            cart = [];
-            cartCount = 0;
-            updateCartDisplay();
-            renderCart();
-        }
-
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: linear-gradient(45deg, #27ae60, #2ecc71);
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 10px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-                z-index: 1000;
-                animation: slideIn 0.5s ease;
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-
-        document.getElementById('sellForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const productData = {};
-            
-            for (let [key, value] of formData.entries()) {
-                productData[key] = value;
-            }
-            
-            showNotification('¡Tu gorra ha sido publicada exitosamente!');
-            this.reset();
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                hideCart(); 
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Asegúrate de que esta parte del código también se copió en tu archivo.
-        // Es el final de un "Intersection Observer" que no está completo en el código que me pasaste.
-        // Lo he completado aquí con un placeholder para que el código sea sintácticamente válido.
-        // Si no lo necesitas, puedes eliminar todo el bloque del Intersection Observer.
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observerCallback = (entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // console.log(`${entry.target.id} está visible!`);
-                    // Aquí podrías agregar lógica para animar elementos al entrar en la vista
-                } else {
-                    // console.log(`${entry.target.id} NO está visible!`);
-                }
-            });
-        };
-
-        const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-        // Observa las secciones principales para efectos de scroll si es necesario
-        // observer.observe(document.getElementById('inicio'));
-        // observer.observe(document.getElementById('productos'));
-        // observer.observe(document.getElementById('vender'));
-        // observer.observe(document.getElementById('contacto'));
-
-        // Esta línea es crucial para iniciar el conteo del carrito cuando la página carga.
-        document.addEventListener('DOMContentLoaded', updateCartDisplay);
-    </script>
-</body>
-</html>
+
+<cabeza>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="ancho=ancho-del-dispositivo, escala-inicial=1.0">
+
+    <title>CapStore - Compra y Venta de Gorras</title>
+
+    <estilo>
+
+        * {
+
+            margen: 0;
+
+            relleno: 0;
+
+            tamaño de caja: caja de borde;
+
+        }
+
+
+
+        cuerpo {
+
+            familia de fuentes: 'Arial', sans-serif;
+
+            altura de línea: 1.6;
+
+            color: #333;
+
+            fondo: gradiente lineal (135 grados, #667eea 0%, #764ba2 100%);
+
+            altura mínima: 100vh;
+
+        }
+
+
+
+        .contenedor {
+
+            ancho máximo: 1200px;
+
+            margen: 0 auto;
+
+            relleno: 0 20px;
+
+        }
+
+
+
+        encabezado {
+
+            fondo: #000000;
+
+            relleno: 1rem 0;
+
+            posición: pegajosa;
+
+            arriba: 0;
+
+            índice z: 100;
+
+            borde inferior: 1px sólido rgba(255, 255, 255, 0.2);
+
+        }
+
+
+
+        navegación {
+
+            pantalla: flex;
+
+            justificar-contenido: espacio-entre;
+
+            alinear-elementos: centro;
+
+        }
+
+
+
+        .logotipo {
+
+            tamaño de fuente: 2rem;
+
+            peso de fuente: negrita;
+
+            color: #fff;
+
+            sombra de texto: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+        }
+
+
+
+        .enlaces de navegación {
+
+            pantalla: flex;
+
+            estilo de lista: ninguno;
+
+            brecha: 2rem;
+
+        }
+
+
+
+        .nav-links un {
+
+            color: #fff;
+
+            decoración de texto: ninguna;
+
+            peso de la fuente: 500;
+
+            transición: todos los 0,3 s de facilidad;
+
+            relleno: 0.5rem 1rem;
+
+            radio del borde: 25px;
+
+        }
+
+
+
+        .nav-links a:hover {
+
+            fondo: rgba(255, 255, 255, 0.2);
+
+            transformar: translateY(-2px);
+
+        }
+
+
+
+        .héroe {
+
+            alinear texto: centro;
+
+            relleno: 4rem 0;
+
+            color: #fff;
+
+        }
+
+
+
+        .héroe h1 {
+
+            tamaño de fuente: 3.5rem;
+
+            margen inferior: 1rem;
+
+            sombra de texto: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+            animación: fadeInUp 1s facilidad;
+
+        }
+
+
+
+        .héroe p {
+
+            tamaño de fuente: 1.3rem;
+
+            margen inferior: 2rem;
+
+            opacidad: 0,9;
+
+            animación: fadeInUp 1s facilidad 0.3s ambos;
+
+        }
+
+
+
+        .cta-botón {
+
+            fondo: gradiente lineal (45 grados, #ff6b6b, #ff8e8e);
+
+            color: blanco;
+
+            relleno: 1rem 2rem;
+
+            borde: ninguno;
+
+            radio del borde: 50px;
+
+            tamaño de fuente: 1.1rem;
+
+            cursor: puntero;
+
+            transición: todos los 0,3 s de facilidad;
+
+            decoración de texto: ninguna;
+
+            pantalla: bloque en línea;
+
+            peso de fuente: negrita;
+
+            caja-sombra: 0 4px 15px rgba(255, 107, 107, 0.4);
+
+            animación: fadeInUp 1s facilidad 0.6s ambos;
+
+        }
+
+
+
+        .cta-button:hover {
+
+            transformar: translateY(-3px);
+
+            caja-sombra: 0 8px 25px rgba(255, 107, 107, 0.6);
+
+        }
+
+
+
+        .características {
+
+            relleno: 4rem 0;
+
+            fondo: rgba(255, 255, 255, 0.95);
+
+            margen: 2rem 0;
+
+            radio del borde: 20px;
+
+            filtro de fondo: desenfoque(10px);
+
+        }
+
+
+
+        .características-cuadrícula {
+
+            pantalla: cuadrícula;
+
+            columnas-de-plantilla-de-cuadrícula: repeat(auto-fit, minmax(300px, 1fr));
+
+            brecha: 2rem;
+
+            margen superior: 2rem;
+
+        }
+
+
+
+        .tarjeta-de-característica {
+
+            fondo: blanco;
+
+            relleno: 2rem;
+
+            radio del borde: 15px;
+
+            alinear texto: centro;
+
+            caja-sombra: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+            transición: transformar 0,3s facilidad;
+
+        }
+
+
+
+        .tarjeta-de-función:hover {
+
+            transformar: translateY(-10px);
+
+        }
+
+
+
+        .icono de característica {
+
+            tamaño de fuente: 3rem;
+
+            margen inferior: 1rem;
+
+        }
+
+
+
+        .productos {
+
+            relleno: 4rem 0;
+
+        }
+
+
+
+        .productos h2 {
+
+            alinear texto: centro;
+
+            color: #fff;
+
+            tamaño de fuente: 2.5rem;
+
+            margen inferior: 3rem;
+
+            sombra de texto: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+        }
+
+
+
+        .productos-cuadrícula {
+
+            pantalla: cuadrícula;
+
+            columnas-de-plantilla-de-cuadrícula: repeat(auto-fit, minmax(280px, 1fr));
+
+            brecha: 2rem;
+
+        }
+
+
+
+        .tarjeta-de-producto {
+
+            fondo: blanco;
+
+            radio del borde: 15px;
+
+            desbordamiento: oculto;
+
+            caja-sombra: 0 15px 35px rgba(0, 0, 0, 0.1);
+
+            transición: todos los 0,3 s de facilidad;
+
+        }
+
+
+
+        .tarjeta-de-producto:hover {
+
+            transformar: translateY(-10px);
+
+            caja-sombra: 0 25px 50px rgba(0, 0, 0, 0.2);
+
+        }
+
+
+
+        .imagen-del-producto {
+
+            altura: 200px;
+
+            fondo: gradiente lineal (45 grados, #667eea, #764ba2);
+
+            pantalla: flex;
+
+            alinear-elementos: centro;
+
+            justificar-contenido: centro;
+
+            tamaño de fuente: 4rem;
+
+            color: blanco;
+
+        }
+
+
+
+        .información del producto {
+
+            relleno: 1,5rem;
+
+        }
+
+
+
+        .información del producto h3 {
+
+            margen inferior: 0.5rem;
+
+            color: #333;
+
+        }
+
+
+
+        .precio-del-producto {
+
+            tamaño de fuente: 1.5rem;
+
+            peso de fuente: negrita;
+
+            color: #ff6b6b;
+
+            margen: 1rem 0;
+
+        }
+
+
+
+        .botón de compra {
+
+            fondo: gradiente lineal (45 grados, #4ecdc4, #44a08d);
+
+            color: blanco;
+
+            borde: ninguno;
+
+            relleno: 0,8rem 1,5rem;
+
+            radio del borde: 25px;
+
+            cursor: puntero;
+
+            transición: todos los 0,3 s de facilidad;
+
+            ancho: 100%;
+
+            peso de fuente: negrita;
+
+        }
+
+
+
+        .botón de compra:hover {
+
+            transformar: translateY(-2px);
+
+            caja-sombra: 0 5px 15px rgba(76, 201, 196, 0.4);
+
+        }
+
+
+
+        .sección de venta {
+
+            fondo: rgba(255, 255, 255, 0.95);
+
+            relleno: 4rem 0;
+
+            margen: 2rem 0;
+
+            radio del borde: 20px;
+
+            alinear texto: centro;
+
+        }
+
+
+
+        .sell-form {
+
+            ancho máximo: 600px;
+
+            margen: 0 auto;
+
+            fondo: blanco;
+
+            relleno: 2rem;
+
+            radio del borde: 15px;
+
+            caja-sombra: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+        }
+
+
+
+        .grupo de formularios {
+
+            margen inferior: 1.5rem;
+
+            alinear texto: izquierda;
+
+        }
+
+
+
+        etiqueta .form-group {
+
+            pantalla: bloque;
+
+            margen inferior: 0.5rem;
+
+            peso de fuente: negrita;
+
+            color: #333;
+
+        }
+
+
+
+        entrada del grupo de formularios,
+
+        .form-group área de texto {
+
+            ancho: 100%;
+
+            relleno: 0,8rem;
+
+            borde: 2px sólido #e0e0e0;
+
+            radio del borde: 8px;
+
+            tamaño de fuente: 1rem;
+
+            transición: facilidad de color del borde 0,3 s;
+
+        }
+
+
+
+        .form-group entrada:enfoque,
+
+        .form-group área de texto:enfoque {
+
+            contorno: ninguno;
+
+            color del borde: #667eea;
+
+        }
+
+
+
+        .botón de envío {
+
+            fondo: gradiente lineal (45 grados, #667eea, #764ba2);
+
+            color: blanco;
+
+            borde: ninguno;
+
+            relleno: 1rem 2rem;
+
+            radio del borde: 25px;
+
+            cursor: puntero;
+
+            tamaño de fuente: 1.1rem;
+
+            peso de fuente: negrita;
+
+            transición: todos los 0,3 s de facilidad;
+
+            ancho: 100%;
+
+        }
+
+
+
+        .botón de envío:hover {
+
+            transformar: translateY(-2px);
+
+            caja-sombra: 0 8px 25px rgba(102, 126, 234, 0.4);
+
+        }
+
+
+
+        pie de página {
+
+            fondo: rgba(0, 0, 0, 0.2);
+
+            color: blanco;
+
+            alinear texto: centro;
+
+            relleno: 2rem 0;
+
+            margen superior: 2rem;
+
+        }
+
+
+
+        @keyframes fadeInUp {
+
+            de {
+
+                opacidad: 0;
+
+                transformar: translateY(30px);
+
+            }
+
+            a {
+
+                opacidad: 1;
+
+                transformar: translateY(0);
+
+            }
+
+        }
+
+
+
+        .cart-icon {
+
+            posición: relativa;
+
+            cursor: puntero;
+
+        }
+
+
+
+        .cart-count {
+
+            posición: absoluta;
+
+            superior: -8px;
+
+            derecha: -8px;
+
+            fondo: #ff6b6b;
+
+            color: blanco;
+
+            radio del borde: 50%;
+
+            ancho: 20px;
+
+            altura: 20px;
+
+            pantalla: flex;
+
+            alinear-elementos: centro;
+
+            justificar-contenido: centro;
+
+            tamaño de fuente: 0.8rem;
+
+            peso de fuente: negrita;
+
+        }
+
+
+
+        /*NUEVOS ESTILOS PARA EL CARRITO*/
+
+        .cart-section {
+
+            fondo: rgba(255, 255, 255, 0.95);
+
+            relleno: 4rem 0;
+
+            margen: 2rem 0;
+
+            radio del borde: 20px;
+
+            filtro de fondo: desenfoque(10px);
+
+            pantalla: ninguna;
+
+        }
+
+
+
+        .cart-section.active {
+
+            pantalla: bloque;
+
+        }
+
+
+
+        .cart-header {
+
+            alinear texto: centro;
+
+            margen inferior: 3rem;
+
+        }
+
+
+
+        .cart-header h2 {
+
+            color: #333;
+
+            tamaño de fuente: 2.5rem;
+
+            margen inferior: 1rem;
+
+        }
+
+
+
+        .artículos del carrito {
+
+            ancho máximo: 800px;
+
+            margen: 0 auto;
+
+        }
+
+
+
+        .cart-item {
+
+            fondo: blanco;
+
+            radio del borde: 15px;
+
+            relleno: 1,5rem;
+
+            margen inferior: 1rem;
+
+            caja-sombra: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+            pantalla: flex;
+
+            justificar-contenido: espacio-entre;
+
+            alinear-elementos: centro;
+
+            transición: transformar 0,3s facilidad;
+
+        }
+
+
+
+        .cart-item:hover {
+
+            transformar: translateX(5px);
+
+        }
+
+
+
+        .cart-item-info {
+
+            pantalla: flex;
+
+            alinear-elementos: centro;
+
+            brecha: 1rem;
+
+        }
+
+
+
+        .cart-item-icon {
+
+            tamaño de fuente: 2rem;
+
+            fondo: gradiente lineal (45 grados, #667eea, #764ba2);
+
+            color: blanco;
+
+            ancho: 60px;
+
+            altura: 60px;
+
+            radio del borde: 50%;
+
+            pantalla: flex;
+
+            alinear-elementos: centro;
+
+            justificar-contenido: centro;
+
+        }
+
+
+
+        .cart-item-details h4 {
+
+            color: #333;
+
+            margen inferior: 0.5rem;
+
+        }
+
+
+
+        .cart-item-price {
+
+            tamaño de fuente: 1.3rem;
+
+            peso de fuente: negrita;
+
+            color: #ff6b6b;
+
+        }
+
+
+
+        .cart-item-actions {
+
+            pantalla: flex;
+
+            brecha: 1rem;
+
+            alinear-elementos: centro;
+
+        }
+
+
+
+        controles de cantidad {
+
+            pantalla: flex;
+
+            alinear-elementos: centro;
+
+            brecha: 0,5rem;
+
+            fondo: #f5f5f5;
+
+            radio del borde: 25px;
+
+            relleno: 0.5rem 1rem;
+
+        }
+
+
+
+        .cantidad-btn {
+
+            fondo: #667eea;
+
+            color: blanco;
+
+            borde: ninguno;
+
+            ancho: 30px;
+
+            altura: 30px;
+
+            radio del borde: 50%;
+
+            cursor: puntero;
+
+            pantalla: flex;
+
+            alinear-elementos: centro;
+
+            justificar-contenido: centro;
+
+            peso de fuente: negrita;
+
+            transición: fondo 0,3 s facilidad;
+
+        }
+
+
+
+        .quantity-btn:hover {
+
+            fondo: #5a67d8;
+
+        }
+
+
+
+        .cantidad-visualización {
+
+            peso de fuente: negrita;
+
+            ancho mínimo: 20px;
+
+            alinear texto: centro;
+
+        }
+
+
+
+        .eliminar-btn {
+
+            fondo: gradiente lineal (45 grados, #ff6b6b, #ff8e8e);
+
+            color: blanco;
+
+            borde: ninguno;
+
+            relleno: 0.5rem 1rem;
+
+            radio del borde: 20px;
+
+            cursor: puntero;
+
+            tamaño de fuente: 0.9rem;
+
+            transición: todos los 0,3 s de facilidad;
+
+        }
+
+
+
+        .remove-btn:hover {
+
+            transformar: translateY(-2px);
+
+            caja-sombra: 0 4px 15px rgba(255, 107, 107, 0.4);
+
+        }
+
+
+
+        .cart-summary {
+
+            fondo: blanco;
+
+            radio del borde: 15px;
+
+            relleno: 2rem;
+
+            margen superior: 2rem;
+
+            caja-sombra: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+            alinear texto: centro;
+
+        }
+
+
+
+        .cart-total {
+
+            tamaño de fuente: 2rem;
+
+            peso de fuente: negrita;
+
+            color: #333;
+
+            margen inferior: 1rem;
+
+        }
+
+
+
+        .precio-total-del-carrito {
+
+            color: #ff6b6b;
+
+        }
+
+
+
+        .checkout-btn {
+
+            fondo: gradiente lineal (45 grados, #4ecdc4, #44a08d);
+
+            color: blanco;
+
+            borde: ninguno;
+
+            relleno: 1rem 3rem;
+
+            radio del borde: 50px;
+
+            tamaño de fuente: 1.2rem;
+
+            peso de fuente: negrita;
+
+            cursor: puntero;
+
+            transición: todos los 0,3 s de facilidad;
+
+            margen superior: 1rem;
+
+        }
+
+
+
+        .checkout-btn:hover {
+
+            transformar: translateY(-3px);
+
+            caja-sombra: 0 8px 25px rgba(76, 201, 196, 0.4);
+
+        }
+
+
+
+        .carrito vacío {
+
+            alinear texto: centro;
+
+            relleno: 4rem 2rem;
+
+        }
+
+
+
+        .icono-de-carrito-vacío {
+
+            tamaño de fuente: 5rem;
+
+            margen inferior: 1rem;
+
+            opacidad: 0,5;
+
+        }
+
+
+
+        .carrito vacío h3 {
+
+            color: #666;
+
+            margen inferior: 1rem;
+
+        }
+
+
+
+        .continuar-comprando {
+
+            fondo: gradiente lineal (45 grados, #667eea, #764ba2);
+
+            color: blanco;
+
+            decoración de texto: ninguna;
+
+            relleno: 1rem 2rem;
+
+            radio del borde: 25px;
+
+            pantalla: bloque en línea;
+
+            peso de fuente: negrita;
+
+            transición: todos los 0,3 s de facilidad;
+
+        }
+
+
+
+        .continuar-comprando:hover {
+
+            transformar: translateY(-2px);
+
+            caja-sombra: 0 8px 25px rgba(102, 126, 234, 0.4);
+
+        }
+
+
+
+        @media (ancho máximo: 768px) {
+
+            .enlaces de navegación {
+
+                pantalla: ninguna;
+
+            }
+
+            
+
+            .héroe h1 {
+
+                tamaño de fuente: 2.5rem;
+
+            }
+
+            
+
+            .héroe p {
+
+                tamaño de fuente: 1.1rem;
+
+            }
+
+
+
+            .cart-item {
+
+                flexión-dirección: columna;
+
+                brecha: 1rem;
+
+                alinear texto: centro;
+
+            }
+
+
+
+            .cart-item-actions {
+
+                justificar-contenido: centro;
+
+            }
+
+        }
+
+    </estilo>
+
+</cabeza>
+
+<cuerpo>
+
+    <encabezado>
+
+        <nav class="contenedor">
+
+            <div class="logo">🧢 Tienda de gorras</div>
+
+            <ul class="enlaces de navegación">
+
+                <li><a href="#inicio">Inicio</a></li>
+
+                <li><a href="#productos">Productos</a></li>
+
+                <li><a href="#vender">Vendedor</a></li>
+
+                <li><a href="#contacto">Contacto</a></li>
+
+                <li><a href="#" class="cart-icon" onclick="toggleCart()">🛒 <span class="cart-count">0</span></a></li>
+
+            </ul>
+
+        </nav>
+
+    </encabezado>
+
+
+
+    <principal>
+
+        <section id="inicio" class="hero">
+
+            <div class="contenedor">
+
+                <h1>¡Encuentra tu gorra perfecta!</h1>
+
+                <p>Compra y vende gorras de las mejores marcas con total confianza</p>
+
+                <a href="#productos" class="cta-button">Ver Productos</a>
+
+            </div>
+
+        </sección>
+
+
+
+        <!-- NUEVA SECCIÓN DEL CARRITO -->
+
+        <section id="carrito" class="sección-de-carrito">
+
+            <div class="contenedor">
+
+                <div class="cart-header">
+
+                    <h2>🛒 Tu Carrito de Compras</h2>
+
+                    <p style="color: #666;">Revisa los productos que has seleccionado</p>
+
+                </div>
+
+
+
+                <div id="contenido-del-carrito">
+
+                    <!-- El contenido se genera dinámicamente con JavaScript -->
+
+                </div>
+
+            </div>
+
+        </sección>
+
+
+
+        <section class="características">
+
+            <div class="contenedor">
+
+                <h2 style="text-align: center; color: #333; margin-bottom: 2rem;">¿Por qué elegirnos?</h2>
+
+                <div class="cuadrícula de características">
+
+                    <div class="tarjeta-de-funciones">
+
+                        🚚
+
+                        Envío gratuito
+
+                        <p>Envío gratuito en compras mayores a $500 MXN</p>
+
+                    </div>
+
+                    <div class="tarjeta-de-funciones">
+
+                        🔒
+
+                        Compra Segura
+
+                        <p>Todas las transacciones están protegidas y garantizadas</p>
+
+                    </div>
+
+                    <div class="tarjeta-de-funciones">
+
+                        💎
+
+                        Calidad Premium
+
+                        <p>Solo vendemos gorras originales y de alta calidad</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </sección>
+
+
+
+        <section id="productos" class="productos">
+
+            <div class="contenedor">
+
+                Nuestros productos
+
+                <div class="products-grid">
+
+                    <div class="tarjeta-de-producto">
+
+                        <div class="product-image"><img src="img/depo.jpg" alt="Gorra deportiva Nike" style="ancho: 100%; alto: 100%; ajuste del objeto: cubierta; radio del borde: 15px 15px 0 0;"></div>
+
+                        <div class="información del producto">
+
+                            Gorra deportiva Nike
+
+                            <p>Gorra deportiva original Nike, perfecta para entrenar</p>
+
+                            $850 MXN
+
+                            <button class="buy-button" onclick="addToCart('Nike Deportiva', 850, '🧢')">Agregar al Carrito</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tarjeta-de-producto">
+
+                        <div class="product-image"><img src="img/yanke.jpg" alt="Gorra New Era Yankees" style="ancho: 100%; alto: 100%; ajuste de objeto: cubierta; radio del borde: 15px 15px 0 0;"></div>
+
+                        <div class="información del producto">
+
+                            <h3>Gorra New Era Yankees</h3>
+
+                            <p>Gorra clásica de los Yankees, edición limitada</p>
+
+                            $1,200 MXN
+
+                            Añadir al carrito
+
+                        </div>
+
+                    </div>
+
+                    <div class="tarjeta-de-producto">
+
+                        <div class="product-image"><img src="img/perso.jpg" alt="Gorra personalizada" style="ancho: 100%; alto: 100%; ajuste del objeto: cubierta; radio del borde: 15px 15px 0 0;"></div>
+
+                        <div class="información del producto">
+
+                            <h3>Gorra personalizada</h3>
+
+                            <p>Diseña tu propia gorra con bordado personalizado</p>
+
+                            $650 MXN
+
+                            <button class="buy-button" onclick="addToCart('Personalizada', 650, '🎨')">Agregar al Carrito</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tarjeta-de-producto">
+
+                        <div class="product-image"><img src="img/vintage.jpg" alt="Gorra de camionero vintage" style="ancho: 100%; alto: 100%; ajuste del objeto: cubierta; radio del borde: 15px 15px 0 0;"></div>
+
+                        <div class="información del producto">
+
+                            Gorra de camionero vintage
+
+                            <p>Estilo retro con malla trasera, muy cómodo</p>
+
+                            $450 MXN
+
+                            Añadir al carrito
+
+                        </div>
+
+                    </div>
+
+                    <div class="tarjeta-de-producto">
+
+                        Gorra Snapback
+
+                        <div class="información-del-producto"></div>
+
+                        <div class="información del producto">
+
+                            Gorra Snapback
+
+                            <p>Gorra snapback con visera plana, estilo urbano</p>
+
+                            $750 MXN
+
+                            Añadir al carrito
+
+                        </div>
+
+                    </div>
+
+                    <div class="tarjeta-de-producto">
+
+                        <div class="product-image"><img src="img/adi.jpg" alt="Gorra Adidas Original" style="ancho: 100%; alto: 100%; ajuste del objeto: cubierta; radio del borde: 15px 15px 0 0;"></div>
+
+                        <div class="información del producto">
+
+                            <h3>Gorra Adidas Original</h3>
+
+                            <p>Gorra Adidas clásica con las tres rayas icónicas</p>
+
+                            $900 MXN
+
+                            Añadir al carrito
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </sección>
+
+
+
+        <section id="vendedor" class="sección-de-venta">
+
+            <div class="contenedor">
+
+                <h2 style="color: #333; margin-bottom: 2rem;">¿Quieres Vender tu Gorra?</h2>
+
+                <p style="color: #666; margin-bottom: 2rem;">Publica tu gorra y alcanza a millas de compradores potenciales</p>
+
+                
+
+                <div class="formulario-de-venta">
+
+                    <h3 style="margin-bottom: 1.5rem; color: #333;">Información del Producto</h3>
+
+                    <form id="sellForm">
+
+                        <div class="grupo-de-formularios">
+
+                            <label for="productName">Nombre del Producto</label>
+
+                            <input type="text" id="nombreProducto" name="nombreProducto" required>
+
+                        </div>
+
+                        <div class="grupo-de-formularios">
+
+                            <label for="brand">Marca</label>
+
+                            <input type="text" id="marca" name="marca" requerido>
+
+                        </div>
+
+                        <div class="grupo-de-formularios">
+
+                            <label for="condition">Estado</label>
+
+                            <select id="condición" nombre="condición" estilo="ancho: 100%; relleno: 0.8rem; borde: 2px sólido #e0e0e0; radio del borde: 8px;">
+
+                                <option value="nuevo">Nuevo</option>
+
+                                <option value="como-nuevo">Como Nuevo</option>
+
+                                Usado
+
+                            </seleccionar>
+
+                        </div>
+
+                        <div class="grupo-de-formularios">
+
+                            <label for="price">Precio (MXN)</label>
+
+                            <input type="number" id="price" name="price" requerido>
+
+                        </div>
+
+                        <div class="grupo-de-formularios">
+
+                            <label for="description">Descripción</label>
+
+                            <textarea id="description" name="description" rows="4" placeholder="Describe tu gorra..."></textarea>
+
+                        </div>
+
+                        <div class="grupo-de-formularios">
+
+                            <label for="contact">Información de Contacto</label>
+
+                            <input type="text" id="contact" name="contact" placeholder="Teléfono o correo electrónico" required>
+
+                        </div>
+
+                        Publicar Gorra
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </sección>
+
+    </principal>
+
+
+
+    <footer id="contacto">
+
+        <div class="contenedor">
+
+            <p>&copiar; Tienda de gorras 2025. Todos los derechos reservados.</p>
+
+            📧 contacto@capstore.mx | 📱 +52 55 1234-5678
+
+            <p>🚚 Envíos a toda la República Mexicana</p>
+
+        </div>
+
+    </pie de página>
+
+
+
+    <guión>
+
+        deje que el carrito = [];
+
+        deje que cartCount = 0;
+
+
+
+        // FUNCIÓN MODIFICADA PARA INCLUIR ICONO
+
+        función addToCart(nombreProducto, precio, icono = '🧢') {
+
+            // Buscar si el producto ya existe en el carrito
+
+            const existingItem = cart.find(item => item.name === nombreProducto);
+
+            
+
+            si (elemento existente) {
+
+                elementoexistente.cantidad += 1;
+
+            } demás {
+
+                carrito.push({
+
+                    nombre: nombreProducto, 
+
+                    precio: precio, 
+
+                    icono: icono,
+
+                    cantidad: 1,
+
+                    id: Date.now() // ID único para identificar el artículo
+
+                });
+
+            }
+
+            
+
+            cartCount++;
+
+            actualizarCartDisplay();
+
+            
+
+            // Animación de éxito
+
+            botón constante = evento.objetivo;
+
+            const texto original = botón.textContenido;
+
+            botón.textContent = '¡Agregado! ✓';
+
+            botón.style.background = 'gradiente-lineal(45deg, #27ae60, #2ecc71)';
+
+            
+
+            establecerTiempo de espera(() => {
+
+                button.textContent = texto original;
+
+                botón.style.background = 'gradiente-lineal(45deg, #4ecdc4, #44a08d)';
+
+            }, 2000);
+
+            
+
+            showNotification(`${productName} agregada al carrito`);
+
+        }
+
+
+
+        // NUEVA FUNCIÓN PARA MOSTRAR/OCULTAR CARRITO
+
+        función toggleCart() {
+
+            const cartSection = document.getElementById('carrito');
+
+            const otherSections = document.querySelectorAll('main > seccion:not(#carrito)');
+
+            
+
+            si (cartSection.classList.contains('active')) {
+
+                // Ocultar carrito y mostrar otras secciones
+
+                cartSection.classList.remove('activo');
+
+                otrasSecciones.paraCada(sección => sección.estilo.pantalla = 'bloque');
+
+            } demás {
+
+                // Mostrar carrito y ocultar otras secciones
+
+                cartSection.classList.add('activo');
+
+                otrasSecciones.paraCada(sección => sección.estilo.mostrar = 'ninguno');
+
+                renderCart();
+
+            }
+
+        }
+
+
+
+        // NUEVA FUNCIÓN PARA RENDERIZAR EL CARRITO
+
+        función renderCart() {
+
+            const cartContent = document.getElementById('cart-content');
+
+            
+
+            si (carrito.longitud === 0) {
+
+                contenido del carrito.innerHTML = `
+
+                    <div class="carrito-vacío">
+
+                        🛒
+
+                        <h3>Tu carrito está vacío</h3>
+
+                        <p style="color: #666; margin-bottom: 2rem;">¡Agrega algunos productos increíbles!</p>
+
+                        <a href="#" class="continue-shopping" onclick="toggleCart()">Continuar Comprando</a>
+
+                    </div>
+
+                `;
+
+                devolver;
+
+            }
+
+
+
+            const cartItemsHTML = carrito.map(item => `
+
+                <div class="artículo-del-carrito">
+
+                    <div class="cart-item-info">
+
+                        <div class="cart-item-icon">${ícono de artículo}</div>
+
+                        <div class="detalles del artículo del carrito">
+
+                            <h4>${item.name}</h4>
+
+                            <div class="cart-item-price">$${item.price.toLocaleString()} MXN</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="acciones-del-artículo-del-carrito">
+
+                        <div class="controles-de-cantidad">
+
+                            <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, -1)">-</button>
+
+                            <span class="quantity-display">${item.quantity}</span>
+
+                            <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, 1)">+</button>
+
+                        </div>
+
+                        Eliminar
+
+                    </div>
+
+                </div>
+
+            `).join('');
+
+
+
+            const total = cart.reduce((suma, articulo) => suma + (articulo.precio * articulo.cantidad), 0);
+
+            const totalItems = cart.reduce((suma, articulo) => suma + articulo.cantidad, 0);
+
+
+
+            contenido del carrito.innerHTML = `
+
+                <div class="artículos-del-carrito">
+
+                    ${cartItemsHTML}
+
+                </div>
+
+                <div class="cart-summary">
+
+                    <div class="cart-total">
+
+                        Total: $${total.toLocaleString()} MXN
+
+                    </div>
+
+                    <p style="color: #666; margin-bottom: 1rem;">${totalItems} producto${totalItems !== 1 ? 's' : ''} en tu carrito</p>
+
+                    <button class="checkout-btn" onclick="checkout()">Proceder al pago 🚀</button>
+
+                    <br><br>
+
+                    <a href="#" class="continue-shopping" onclick="toggleCart()" style="font-size: 0.9rem;">← Continuar comprando</a>
+
+                </div>
+
+            `;
+
+        }
+
+
+
+        // NUEVA FUNCIÓN PARA CAMBIAR CANTIDAD
+
+        función changeQuantity(itemId, cambio) {
+
+            const item = carrito.find(item => item.id === itemId);
+
+            si (artículo) {
+
+                articulo.cantidad += cambio;
+
+                si (item.cantidad <= 0) {
+
+                    removeFromCart(itemId);
+
+                    devolver;
+
+                }
+
+                actualizarCartDisplay();
+
+                renderCart();
+
+            }
+
+        }
+
+
+
+        // NUEVA FUNCIÓN PARA ELIMINAR DEL CARRITO
+
+        función removeFromCart(itemId) {
+
+            const itemIndex = cart.findIndex(item => item.id === itemId);
+
+            si (Índice del elemento > -1) {
+
+                const removedItem = carrito[itemIndex];
+
+                cartCount -=elementoremovido.cantidad;
+
+                carrito.splice(itemIndex, 1);
+
+                actualizarCartDisplay();
+
+                renderCart();
+
+                showNotification(`${removedItem.name} eliminada del carrito`);
+
+            }
+
+        }
+
+
+
+        // NUEVA FUNCIÓN PARA ACTUALIZAR DISPLAY DEL CARRITO
+
+        función updateCartDisplay() {
+
+            cartCount = cart.reduce((suma, articulo) => suma + articulo.cantidad, 0);
+
+            document.querySelector('.cart-count').textContent = cartCount;
+
+        }
+
+
+
+        // NUEVA FUNCIÓN PARA PAGO
+
+        función checkout() {
+
+            si (carrito.length === 0) retorna;
+
+            
+
+            const total = cart.reduce((suma, articulo) => suma + (articulo.precio * articulo.cantidad), 0);
+
+            showNotification(`¡Compra realizada por ${total.toLocaleString()} MXN! Gracias por tu compra 🎉`);
+
+            
+
+            // Limpiar carrito
+
+            carrito = [];
+
+            cartCount = 0;
+
+            actualizarCartDisplay();
+
+            renderCart();
+
+        }
+
+
+
+        función showNotification(mensaje) {
+
+            const notificación = document.createElement('div');
+
+            notificación.textContent = mensaje;
+
+            notificación.style.cssText = `
+
+                posición: fija;
+
+                superior: 20px;
+
+                derecha: 20px;
+
+                fondo: gradiente lineal (45 grados, #27ae60, #2ecc71);
+
+                color: blanco;
+
+                relleno: 1rem 2rem;
+
+                radio del borde: 10px;
+
+                caja-sombra: 0 4px 15px rgba(0,0,0,0.2);
+
+                índice z: 1000;
+
+                animación: diapositivaIn 0.5s facilidad;
+
+            `;
+
+            
+
+            document.body.appendChild(notificación);
+
+            
+
+            establecerTiempo de espera(() => {
+
+                notificación.eliminar();
+
+            }, 3000);
+
+        }
+
+
+
+        // Formulario de venta
+
+        document.getElementById('sellForm').addEventListener('enviar', función(e) {
+
+            e.preventDefault();
+
+            
+
+            const formData = nuevo FormData (este);
+
+            const productData = {};
+
+            
+
+            para (dejar [clave, valor] de formData.entries()) {
+
+                productData[clave] = valor;
+
+            }
+
+            
+
+            showNotification('¡Tu gorra ha sido publicada exitosamente!');
+
+            esto.reset();
+
+        });
+
+
+
+        // Desplazamiento suave para navegación
+
+        documento.querySelectorAll('a[href^="#"]').forEach(ancla => {
+
+            ancla.addEventListener('clic', función (e) {
+
+                e.preventDefault();
+
+                constante objetivo = document.querySelector(this.getAttribute('href'));
+
+                si (objetivo) {
+
+                    objetivo.scrollIntoView({
+
+                        comportamiento: 'suave',
+
+                        bloque: 'inicio'
+
+                    });
+
+                }
+
+            });
+
+        });
+
+
+
+        // Animación de entrada para las tarjetas de productos.
+
+        const observerOptions = {
+
+            umbral: 0,1,
+
+            rootMargin: '0px 0px -50px 0px'
+
+        };
+
+
+
